@@ -1,4 +1,7 @@
-const imageTemplate = (cat, idx) => `<article class="item" data-id =${idx}>
+const imageTemplate = (
+  cat,
+  idx
+) => `<article class="results__item" data-id =${idx}>
 <img src=${cat.url} alt=${cat.name}  data-id=${cat.id} title=${cat.name}/>
 </article>`;
 
@@ -8,7 +11,7 @@ export default class SearchResults {
     this.onClick = onClick;
 
     this.results = document.createElement('section');
-    this.results.setAttribute('class', 'results');
+    this.results.className = 'results';
     $target.appendChild(this.results);
 
     this.results.addEventListener('click', (e) => {

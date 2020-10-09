@@ -18,6 +18,7 @@ class App {
     };
     //header
     this.header = document.createElement('header');
+    this.header.className = 'search';
     this.toggleBtn = new ToggleBtn(this.header);
     this.searchInput = new SearchInput(this.header, this._onSearch);
     this.randomBtn = new SearchRandom(this.header, this._onBtnClick);
@@ -25,7 +26,11 @@ class App {
     this.$target.appendChild(this.header);
 
     //randomSection
-    this.randomSlide = new RandomSlide(this.$target, this.state.randomCats);
+    this.randomSlide = new RandomSlide(
+      this.$target,
+      this.state.randomCats,
+      this._onImageClick
+    );
 
     //resultsSection
     this.searchResults = new SearchResults(
@@ -37,11 +42,15 @@ class App {
     //Popup
     this.imageInfo = new ImageInfo($target);
 
+    //initializing
     this.init();
   }
   init = async () => {
+    if (store.getRandomData().length) return;
+    console.log('random검색중....');
     const randomCats = await api.getRandomCats();
     this.setState({ randomCats });
+    store.setRandomData(randomCats);
   };
 
   _onSearch = async (keyword) => {
@@ -67,8 +76,9 @@ class App {
   };
 
   _handleRecent = (value) => {
+    const createdAt = Date.now();
     const currentWords = this.state.recentWords;
-    currentWords.push(value);
+    currentWords.push([value, createdAt]);
     if (currentWords.length > 5) {
       currentWords.shift();
     }

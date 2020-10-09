@@ -15,8 +15,8 @@ export default class SearchRecent {
 
   render = () => {
     this.recentWords.innerHTML = this.data
-      .reverse()
-      .map((word) => `<word>${word}</word>`)
+      .sort((a, b) => b[1] - a[1])
+      .map(([word, time]) => `<word>${word}</word>`)
       .join('');
   };
 }

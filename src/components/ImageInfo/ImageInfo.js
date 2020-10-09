@@ -1,11 +1,11 @@
 const imageDetailTemplate = ({ name, url, temperament, origin }) => `
-<div class="content-wrapper">
-<div class="title">
+<div class="popup__content-wrapper">
+<div class="popup__title">
   <span>${name}</span>
-  <div class="close">x</div>
+  <div class="popup__close">x</div>
 </div>
 <img src="${url}" alt="${name}"/>        
-<div class="description">
+<div class="popup__description">
   <div>성격: ${temperament}</div>
   <div>태생: ${origin}</div>
 </div>

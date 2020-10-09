@@ -3,7 +3,7 @@ export default class SearchInput {
     this.onSearch = onSearch;
 
     this.searchInput = document.createElement('input');
-    this.searchInput.setAttribute('class', 'search');
+    this.searchInput.className = 'search__input';
     this.searchInput.placeholder = '고양이를 검색하세요...';
 
     this.searchInput.addEventListener('keypress', this.handleInput);

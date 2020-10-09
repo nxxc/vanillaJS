@@ -24,7 +24,7 @@ html {
   768px 이하: 2개
   576px 이하: 1개 */
 
-  @media (max-width: 992px) {
+@media (max-width: 992px) {
     .results {
         grid-template-columns: repeat(3, minmax(250px, 1fr));
     }
@@ -46,14 +46,14 @@ html {
     height: 100%;
     object-fit: cover;
 }
-.results .item {
+.results__item {
     background-color: #eee;
     display: inline-block;
     margin: 0 0 1em;
     width: 100%;
 }
 
-.search {
+.search__input {
     width: 90%;
     font-size: 40px;
     padding: 10px 15px;
@@ -69,17 +69,17 @@ html {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.popup .title {
+.popup__title {
     display: flex;
     justify-content: space-between;
 }
 
-.popup .title,
-.popup .description {
+.popup__title,
+.popup__description {
     padding: 5px;
 }
 
-.popup .content-wrapper {
+.popup__content-wrapper {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -88,7 +88,7 @@ html {
     border: 1px solid #eee;
     border-radius: 5px;
 }
-.popup .content-wrapper img {
+.popup__content-wrapper img {
     width: 100%;
 }
 
@@ -109,4 +109,24 @@ html {
 .dark {
     background-color: #000;
     color: white;
+}
+
+.random__banner {
+    display: flex;
+    justify-content: space-between;
+    height: 250px;
+    width: 100%;
+}
+
+.random__banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.random__banner--item {
+    background-color: #eee;
+    display: inline-block;
+    margin: 0 0 1em;
+    width: 100%;
 }
