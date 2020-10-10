@@ -1,6 +1,11 @@
+export const storeKey = Object.freeze({
+  currentData: 'currentData',
+  randomCats: 'randomCats',
+  recentWords: 'recentWords',
+});
+
 const defaultObj = {
   data: [],
-  message: 'data가 없어용',
 };
 
 const getRecentWords = () => {
@@ -17,22 +22,14 @@ const getCurrentData = () => {
   return currentData ? currentData : defaultObj;
 };
 
-const setRecentWords = (data) => {
-  localStorage.setItem('recentWords', JSON.stringify(data));
-};
-const setRandomData = (data) => {
-  localStorage.setItem('randomCats', JSON.stringify(data));
-};
-const setCurrentData = (data) => {
-  localStorage.setItem('currentData', JSON.stringify(data));
+const setData = (key, data) => {
+  localStorage.setItem(key, JSON.stringify(data));
 };
 
 const store = {
   getRecentWords,
   getRandomData,
   getCurrentData,
-  setRecentWords,
-  setRandomData,
-  setCurrentData,
+  setData,
 };
 export default store;

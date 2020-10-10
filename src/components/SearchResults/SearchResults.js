@@ -35,20 +35,20 @@ export default class SearchResults {
   render() {
     if (this.state.isLoading) {
       this.results.innerHTML = 'loading.....';
-      return;
-    }
-    if (!this.state.isError) {
-      if (!this.state.data.length) {
-        console.log('검색결과 없음');
-        this.results.innerHTML = '검색결과가 없습니다';
-      } else {
-        this.results.innerHTML = this.state.data
-          .map((cat, idx) => imageTemplate(cat, idx, 'results__item'))
-          .join('');
-      }
     } else {
-      console.log(this.state);
-      this.results.innerHTML = 'Error! 다시 시도해 주세요';
+      if (!this.state.isError) {
+        if (!this.state.data.length) {
+          console.log('검색결과 없음');
+          this.results.innerHTML = '검색결과가 없습니다';
+        } else {
+          this.results.innerHTML = this.state.data
+            .map((cat, idx) => imageTemplate(cat, idx, 'results__item'))
+            .join('');
+        }
+      } else {
+        console.log(this.state);
+        this.results.innerHTML = 'Error! 다시 시도해 주세요';
+      }
     }
   }
 }

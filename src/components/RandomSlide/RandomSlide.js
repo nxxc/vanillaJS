@@ -36,16 +36,16 @@ export default class RandomSlide {
   render() {
     if (this.state.isLoading) {
       this.banner.innerHTML = 'loading.....';
-      return;
-    }
-    if (!this.state.isError) {
-      const data = this.state.data.slice(0, 5);
-      this.banner.innerHTML = data
-        .map((cat, idx) => imageTemplate(cat, idx, 'random__banner--item'))
-        .join('');
     } else {
-      console.log(this.state);
-      this.banner.innerHTML = 'Error! 다시 시도해 주세요';
+      if (!this.state.isError) {
+        const data = this.state.data.slice(0, 5);
+        this.banner.innerHTML = data
+          .map((cat, idx) => imageTemplate(cat, idx, 'random__banner--item'))
+          .join('');
+      } else {
+        console.log(this.state);
+        this.banner.innerHTML = 'Error! 다시 시도해 주세요';
+      }
     }
   }
 }

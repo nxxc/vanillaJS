@@ -1,10 +1,9 @@
 const API_ENDPOINT =
   'https://oivhcpn8r9.execute-api.ap-northeast-2.amazonaws.com/dev';
 
-// 랜덤고양이 api api/cats/random50
-const getRandomCats = async () => {
+const fetchData = async (url) => {
   try {
-    const res = await fetch(`${API_ENDPOINT}/api/cats/random50`);
+    const res = await fetch(url);
     if (res.ok) {
       const { data } = await res.json();
       const dataObj = {
@@ -25,30 +24,16 @@ const getRandomCats = async () => {
     console.log(error);
   }
 };
+// 랜덤고양이 api api/cats/random50
+const getRandomCats = () => {
+  const url = `${API_ENDPOINT}/api/cats/random50`;
+  return fetchData(url);
+};
 
 // 고양이 검색 api /api/cats/search?q=${keyword}
-const getCats = async (keyword) => {
-  try {
-    const res = await fetch(`${API_ENDPOINT}/api/cats/search?q=${keyword}`);
-    if (res.ok) {
-      const { data } = await res.json();
-      const dataObj = {
-        data,
-        isError: false,
-      };
-      return dataObj;
-    } else {
-      const error = await res.json();
-      const errorObj = {
-        data: [],
-        message: error.message,
-        isError: true,
-      };
-      return errorObj;
-    }
-  } catch (error) {
-    console.log(error);
-  }
+const getCats = (keyword) => {
+  const url = `${API_ENDPOINT}/api/cats/search?q=${keyword}`;
+  return fetchData(url);
 };
 // 고양이 검색 by id /api/cats/${id}
 
@@ -67,10 +52,10 @@ const getCatInfoById = async (id) => {
   }
 };
 
-const api = {
+const fetchAPI = {
   getRandomCats,
   getCats,
   getCatInfoById,
 };
 
-export default api;
+export default fetchAPI;

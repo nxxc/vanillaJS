@@ -1,12 +1,16 @@
-import ImageInfo from './ImageInfo/ImageInfo.js';
-import RandomSlide from './RandomSlide/RandomSlide.js';
-import SearchInput from './Search/SearchInput.js';
-import SearchResults from './SearchResults/SearchResults.js';
 import ToggleBtn from './ToggleBtn.js';
-import api from '../utils/api.js';
-import SearchRecent from './Search/SearchRecent.js';
-import store from '../utils/store.js';
+import SearchInput from './Search/SearchInput.js';
 import SearchRandom from './Search/SearchRandom.js';
+import SearchRecent from './Search/SearchRecent.js';
+
+import RandomSlide from './RandomSlide/RandomSlide.js';
+
+import SearchResults from './SearchResults/SearchResults.js';
+
+import ImageInfo from './ImageInfo/ImageInfo.js';
+
+import store, { storeKey } from '../utils/store.js';
+import fetchAPI from '../utils/api.js';
 
 class App {
   constructor($target) {
@@ -51,42 +55,29 @@ class App {
   };
   _handleRandom = async () => {
     this.randomSlide.toggleLoading();
-    const res = await api.getRandomCats();
-    console.log(res);
+    const res = await fetchAPI.getRandomCats();
+    this.randomSlide.setState(res);
+    this.randomSlide.toggleLoading();
     if (!res.isError) {
       this.setState({ randomCats: res.data });
-      this.randomSlide.setState(res);
-      this.randomSlide.toggleLoading();
-      store.setRandomData(res);
-    } else {
-      this.setState({
-        error: res,
-      });
-      this.randomSlide.setState(res);
-      this.randomSlide.toggleLoading();
+      store.setData(storeKey.randomCats, res);
     }
   };
 
   _onSearch = async (keyword) => {
+    this._handleRecent(keyword);
     this.searchResults.toggleLoading();
-    const res = await api.getCats(keyword);
-    console.log(res);
+    const res = await fetchAPI.getCats(keyword);
+    this.searchResults.setState(res);
+    this.searchResults.toggleLoading();
     if (!res.isError) {
       this.setState({ currentData: res.data });
-      this.searchResults.setState(res);
-      this.searchResults.toggleLoading();
-      store.setCurrentData(res);
-    } else {
-      this.setState({
-        error: res,
-      });
-      this.searchResults.setState(res);
-      this.searchResults.toggleLoading();
+      store.setData(storeKey.currentData, res);
     }
   };
 
   _onImageClick = async (id) => {
-    const imageInfo = await api.getCatInfoById(id);
+    const imageInfo = await getCatInfoById(id);
     this.imageInfo.setState({
       visible: true,
       data: imageInfo,
@@ -104,7 +95,7 @@ class App {
       recentWords: currentWords,
     });
     this.searchRecent.setState(this.state.recentWords);
-    store.setRecentWords(this.state.recentWords);
+    store.setData(storeKey.recentWords, this.state.recentWords);
   };
 
   setState(nextData) {
