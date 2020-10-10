@@ -15,14 +15,13 @@ class App {
       currentData: store.getCurrentData(),
       randomCats: store.getRandomData(),
       recentWords: store.getRecentWords(),
-      error: {},
     };
     //header
     this.header = document.createElement('header');
     this.header.className = 'search';
     this.toggleBtn = new ToggleBtn(this.header);
     this.searchInput = new SearchInput(this.header, this._onSearch);
-    this.randomBtn = new SearchRandom(this.header, this._onBtnClick);
+    this.randomBtn = new SearchRandom(this.header, this._handleRandom);
     this.$target.appendChild(this.header);
     this.searchRecent = new SearchRecent($target, this.state.recentWords);
 
@@ -47,41 +46,43 @@ class App {
     this.init();
   }
   init = async () => {
-    if (this.state.randomCats.data.length) {
-      this.randomSlide.setState({
-        isLoading: false,
-      });
-      return;
-    }
-    this.randomSlide.setState({ isLoading: true });
+    if (this.state.randomCats.data.length) return;
+    this._handleRandom();
+  };
+  _handleRandom = async () => {
+    this.randomSlide.toggleLoading();
     const res = await api.getRandomCats();
+    console.log(res);
     if (!res.isError) {
       this.setState({ randomCats: res.data });
-      this.randomSlide.setState({
-        ...res,
-        isLoading: false,
-      });
-      store.setRandomData({
-        ...res,
-        isLoading: false,
-      });
+      this.randomSlide.setState(res);
+      this.randomSlide.toggleLoading();
+      store.setRandomData(res);
     } else {
       this.setState({
         error: res,
       });
-      this.randomSlide.setState({
-        ...res,
-        isLoading: false,
-      });
+      this.randomSlide.setState(res);
+      this.randomSlide.toggleLoading();
     }
   };
 
   _onSearch = async (keyword) => {
-    const cats = await api.getCats(keyword);
-    this.setState({ currentData: cats });
-    this.searchResults.setState(cats);
-    this._handleRecent(keyword);
-    store.setCurrentData(this.state.currentData);
+    this.searchResults.toggleLoading();
+    const res = await api.getCats(keyword);
+    console.log(res);
+    if (!res.isError) {
+      this.setState({ currentData: res.data });
+      this.searchResults.setState(res);
+      this.searchResults.toggleLoading();
+      store.setCurrentData(res);
+    } else {
+      this.setState({
+        error: res,
+      });
+      this.searchResults.setState(res);
+      this.searchResults.toggleLoading();
+    }
   };
 
   _onImageClick = async (id) => {
@@ -90,30 +91,6 @@ class App {
       visible: true,
       data: imageInfo,
     });
-  };
-
-  _onBtnClick = async () => {
-    this.randomSlide.setState({ isLoading: true });
-    const res = await api.getRandomCats();
-    if (!res.isError) {
-      this.setState({ randomCats: res.data });
-      this.randomSlide.setState({
-        ...res,
-        isLoading: false,
-      });
-      store.setRandomData({
-        ...res,
-        isLoading: false,
-      });
-    } else {
-      this.setState({
-        error: res,
-      });
-      this.randomSlide.setState({
-        ...res,
-        isLoading: false,
-      });
-    }
   };
 
   _handleRecent = (value) => {
@@ -138,12 +115,7 @@ class App {
     this.render();
   }
 
-  render() {
-    if (this.state.error.isError) {
-      console.log(1);
-      this.randomSlide.innerHTML = this.state.error.message;
-    }
-  }
+  render() {}
 }
 
 export default App;

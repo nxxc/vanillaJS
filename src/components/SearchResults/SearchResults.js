@@ -1,13 +1,10 @@
-const imageTemplate = (
-  cat,
-  idx
-) => `<article class="results__item" data-id =${idx}>
-<img src=${cat.url} alt=${cat.name}  data-id=${cat.id} title=${cat.name} />
-</article>`;
-
+import imageTemplate from '../templates/imageTemplate.js';
 export default class SearchResults {
-  constructor($target, initialData, onClick) {
-    this.data = initialData;
+  constructor($target, initialState, onClick) {
+    this.state = {
+      ...initialState,
+      isLoading: false,
+    };
     this.onClick = onClick;
 
     this.results = document.createElement('section');
@@ -22,17 +19,36 @@ export default class SearchResults {
     this.render();
   }
   setState(nextData) {
-    this.data = nextData;
-    console.log(this.data);
+    this.state = {
+      ...this.state,
+      ...nextData,
+    };
     this.render();
   }
 
-  // handleClick(e){
-  //   if(e.target.name)
-  // }
+  toggleLoading() {
+    this.setState({
+      isLoading: !this.state.isLoading,
+    });
+  }
+
   render() {
-    this.results.innerHTML = this.data
-      .map((cat, idx) => imageTemplate(cat, idx))
-      .join('');
+    if (this.state.isLoading) {
+      this.results.innerHTML = 'loading.....';
+      return;
+    }
+    if (!this.state.isError) {
+      if (!this.state.data.length) {
+        console.log('검색결과 없음');
+        this.results.innerHTML = '검색결과가 없습니다';
+      } else {
+        this.results.innerHTML = this.state.data
+          .map((cat, idx) => imageTemplate(cat, idx, 'results__item'))
+          .join('');
+      }
+    } else {
+      console.log(this.state);
+      this.results.innerHTML = 'Error! 다시 시도해 주세요';
+    }
   }
 }

@@ -32,10 +32,19 @@ const getCats = async (keyword) => {
     const res = await fetch(`${API_ENDPOINT}/api/cats/search?q=${keyword}`);
     if (res.ok) {
       const { data } = await res.json();
-      return data;
+      const dataObj = {
+        data,
+        isError: false,
+      };
+      return dataObj;
     } else {
-      console.log(res);
-      console.log('검색 오류 다시 시도해주세요 키워드');
+      const error = await res.json();
+      const errorObj = {
+        data: [],
+        message: error.message,
+        isError: true,
+      };
+      return errorObj;
     }
   } catch (error) {
     console.log(error);

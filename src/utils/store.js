@@ -14,7 +14,7 @@ const getRandomData = () => {
 
 const getCurrentData = () => {
   const currentData = JSON.parse(localStorage.getItem('currentData'));
-  return currentData ? currentData : [];
+  return currentData ? currentData : defaultObj;
 };
 
 const setRecentWords = (data) => {

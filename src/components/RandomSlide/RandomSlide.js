@@ -1,28 +1,21 @@
-const imageTemplate = (
-  cat,
-  idx
-) => `<article class="random__banner--item" data-id =${idx}>
-<img src=${cat.url} alt=${cat.name}  data-id=${cat.id} title=${cat.name}/>
-</article>`;
+import imageTemplate from '../templates/imageTemplate.js';
 export default class RandomSlide {
   constructor($target, initialState, onClick) {
     this.state = {
       ...initialState,
-      isLoading: true,
+      isLoading: false,
     };
     this.onClick = onClick;
-    console.log('im Rs');
 
     this.banner = document.createElement('section');
     this.banner.className = 'random__banner';
+    $target.appendChild(this.banner);
 
     this.banner.addEventListener('click', (e) => {
       if (e.target.nodeName !== 'IMG') return;
       this.onClick(e.target.dataset.id);
       console.log(e.target.dataset.id);
     });
-
-    $target.appendChild(this.banner);
 
     this.render();
   }
@@ -34,6 +27,12 @@ export default class RandomSlide {
     this.render();
   }
 
+  toggleLoading() {
+    this.setState({
+      isLoading: !this.state.isLoading,
+    });
+  }
+
   render() {
     if (this.state.isLoading) {
       this.banner.innerHTML = 'loading.....';
@@ -42,7 +41,7 @@ export default class RandomSlide {
     if (!this.state.isError) {
       const data = this.state.data.slice(0, 5);
       this.banner.innerHTML = data
-        .map((cat, idx) => imageTemplate(cat, idx))
+        .map((cat, idx) => imageTemplate(cat, idx, 'random__banner--item'))
         .join('');
     } else {
       console.log(this.state);
