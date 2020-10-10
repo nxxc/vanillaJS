@@ -1,7 +1,8 @@
 export default class SearchRecent {
   constructor($target, initialData) {
     this.data = initialData;
-    this.recentWords = document.createElement('div');
+    this.recentWords = document.createElement('p');
+    this.recentWords.className = 'search__recent';
 
     $target.appendChild(this.recentWords);
 
@@ -14,9 +15,10 @@ export default class SearchRecent {
   };
 
   render = () => {
-    this.recentWords.innerHTML = this.data
+    this.recentWords.innerHTML = `최근검색어:${this.data
       .sort((a, b) => b[1] - a[1])
-      .map(([word, time]) => `<word>${word}</word>`)
-      .join('');
+      .map(([word, time]) => `<span>${word}</span>`)
+      .join('')}
+      `;
   };
 }

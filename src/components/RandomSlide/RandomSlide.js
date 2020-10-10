@@ -4,10 +4,12 @@ const imageTemplate = (
 ) => `<article class="random__banner--item" data-id =${idx}>
 <img src=${cat.url} alt=${cat.name}  data-id=${cat.id} title=${cat.name}/>
 </article>`;
-
 export default class RandomSlide {
-  constructor($target, initialData, onClick) {
-    this.data = initialData;
+  constructor($target, initialState, onClick) {
+    this.state = {
+      ...initialState,
+      isLoading: true,
+    };
     this.onClick = onClick;
     console.log('im Rs');
 
@@ -25,15 +27,26 @@ export default class RandomSlide {
     this.render();
   }
   setState(nextData) {
-    this.data = nextData;
-    console.log(this.data);
+    this.state = {
+      ...this.state,
+      ...nextData,
+    };
     this.render();
   }
 
   render() {
-    const data = this.data.slice(0, 5);
-    this.banner.innerHTML = data
-      .map((cat, idx) => imageTemplate(cat, idx))
-      .join('');
+    if (this.state.isLoading) {
+      this.banner.innerHTML = 'loading.....';
+      return;
+    }
+    if (!this.state.isError) {
+      const data = this.state.data.slice(0, 5);
+      this.banner.innerHTML = data
+        .map((cat, idx) => imageTemplate(cat, idx))
+        .join('');
+    } else {
+      console.log(this.state);
+      this.banner.innerHTML = 'Error! 다시 시도해 주세요';
+    }
   }
 }

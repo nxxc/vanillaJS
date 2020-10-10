@@ -7,10 +7,19 @@ const getRandomCats = async () => {
     const res = await fetch(`${API_ENDPOINT}/api/cats/random50`);
     if (res.ok) {
       const { data } = await res.json();
-      return data;
+      const dataObj = {
+        data,
+        isError: false,
+      };
+      return dataObj;
     } else {
-      console.log(res);
-      console.log('검색 오류 다시 시도해주세요 랜덤');
+      const error = await res.json();
+      const errorObj = {
+        data: [],
+        message: error.message,
+        isError: true,
+      };
+      return errorObj;
     }
   } catch (error) {
     console.log(error);

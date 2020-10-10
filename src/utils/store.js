@@ -1,10 +1,15 @@
+const defaultObj = {
+  data: [],
+  message: 'data가 없어용',
+};
+
 const getRecentWords = () => {
   const recentWords = JSON.parse(localStorage.getItem('recentWords'));
   return recentWords ? recentWords : [];
 };
 const getRandomData = () => {
   const randomCats = JSON.parse(localStorage.getItem('randomCats'));
-  return randomCats ? randomCats : [];
+  return randomCats ? randomCats : defaultObj;
 };
 
 const getCurrentData = () => {

@@ -2,7 +2,7 @@ const imageTemplate = (
   cat,
   idx
 ) => `<article class="results__item" data-id =${idx}>
-<img src=${cat.url} alt=${cat.name}  data-id=${cat.id} title=${cat.name}/>
+<img src=${cat.url} alt=${cat.name}  data-id=${cat.id} title=${cat.name} />
 </article>`;
 
 export default class SearchResults {

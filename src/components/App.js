@@ -15,6 +15,7 @@ class App {
       currentData: store.getCurrentData(),
       randomCats: store.getRandomData(),
       recentWords: store.getRecentWords(),
+      error: {},
     };
     //header
     this.header = document.createElement('header');
@@ -22,8 +23,8 @@ class App {
     this.toggleBtn = new ToggleBtn(this.header);
     this.searchInput = new SearchInput(this.header, this._onSearch);
     this.randomBtn = new SearchRandom(this.header, this._onBtnClick);
-    this.searchRecent = new SearchRecent(this.header, this.state.recentWords);
     this.$target.appendChild(this.header);
+    this.searchRecent = new SearchRecent($target, this.state.recentWords);
 
     //randomSection
     this.randomSlide = new RandomSlide(
@@ -46,11 +47,33 @@ class App {
     this.init();
   }
   init = async () => {
-    if (store.getRandomData().length) return;
-    console.log('random검색중....');
-    const randomCats = await api.getRandomCats();
-    this.setState({ randomCats });
-    store.setRandomData(randomCats);
+    if (this.state.randomCats.data.length) {
+      this.randomSlide.setState({
+        isLoading: false,
+      });
+      return;
+    }
+    this.randomSlide.setState({ isLoading: true });
+    const res = await api.getRandomCats();
+    if (!res.isError) {
+      this.setState({ randomCats: res.data });
+      this.randomSlide.setState({
+        ...res,
+        isLoading: false,
+      });
+      store.setRandomData({
+        ...res,
+        isLoading: false,
+      });
+    } else {
+      this.setState({
+        error: res,
+      });
+      this.randomSlide.setState({
+        ...res,
+        isLoading: false,
+      });
+    }
   };
 
   _onSearch = async (keyword) => {
@@ -70,16 +93,34 @@ class App {
   };
 
   _onBtnClick = async () => {
-    const randomCats = await api.getRandomCats();
-    this.setState({ randomCats });
-    store.setRandomData(randomCats);
+    this.randomSlide.setState({ isLoading: true });
+    const res = await api.getRandomCats();
+    if (!res.isError) {
+      this.setState({ randomCats: res.data });
+      this.randomSlide.setState({
+        ...res,
+        isLoading: false,
+      });
+      store.setRandomData({
+        ...res,
+        isLoading: false,
+      });
+    } else {
+      this.setState({
+        error: res,
+      });
+      this.randomSlide.setState({
+        ...res,
+        isLoading: false,
+      });
+    }
   };
 
   _handleRecent = (value) => {
     const createdAt = Date.now();
-    const currentWords = this.state.recentWords;
-    currentWords.push([value, createdAt]);
+    const currentWords = [...this.state.recentWords, [value, createdAt]];
     if (currentWords.length > 5) {
+      console.log(currentWords);
       currentWords.shift();
     }
     this.setState({
@@ -97,7 +138,12 @@ class App {
     this.render();
   }
 
-  render() {}
+  render() {
+    if (this.state.error.isError) {
+      console.log(1);
+      this.randomSlide.innerHTML = this.state.error.message;
+    }
+  }
 }
 
 export default App;
