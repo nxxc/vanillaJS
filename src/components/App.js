@@ -77,11 +77,13 @@ class App {
   };
 
   _onImageClick = async (id) => {
-    const imageInfo = await getCatInfoById(id);
+    this.imageInfo.toggleLoading();
+    const imageInfo = await fetchAPI.getCatInfoById(id);
     this.imageInfo.setState({
       visible: true,
-      data: imageInfo,
+      ...imageInfo,
     });
+    this.imageInfo.toggleLoading();
   };
 
   _handleRecent = (value) => {

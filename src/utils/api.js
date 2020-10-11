@@ -16,12 +16,14 @@ const fetchData = async (url) => {
       const errorObj = {
         data: [],
         message: error.message,
+        status: res.status,
         isError: true,
       };
       return errorObj;
     }
   } catch (error) {
-    console.log(error);
+    console.log('error is=>');
+    console.dir(error.message);
   }
 };
 // 랜덤고양이 api api/cats/random50
@@ -37,20 +39,25 @@ const getCats = (keyword) => {
 };
 // 고양이 검색 by id /api/cats/${id}
 
-const getCatInfoById = async (id) => {
-  try {
-    const res = await fetch(`${API_ENDPOINT}/api/cats/${id}`);
-    if (res.ok) {
-      const { data } = await res.json();
-      return data;
-    } else {
-      console.log(res);
-      console.log('검색 오류 다시 시도해주세요 아이디');
-    }
-  } catch (error) {
-    console.log(error);
-  }
+const getCatInfoById = (id) => {
+  const url = `${API_ENDPOINT}/api/cats/${id}`;
+  return fetchData(url);
 };
+
+// const getCatInfoById = async (id) => {
+//   try {
+//     const res = await fetch(`${API_ENDPOINT}/api/cats/${id}`);
+//     if (res.ok) {
+//       const { data } = await res.json();
+//       return data;
+//     } else {
+//       console.log(res);
+//       console.log('검색 오류 다시 시도해주세요 아이디');
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 const fetchAPI = {
   getRandomCats,
