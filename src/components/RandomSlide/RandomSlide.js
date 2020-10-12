@@ -1,8 +1,27 @@
-import ImageSection from '../factory/componentFactory.js';
+import { ImageSection, CustomBtn } from '../factory/componentFactory.js';
 import imageTemplate from '../templates/imageTemplate.js';
 export default class RandomSlide extends ImageSection {
   constructor(props) {
     super(props);
+    console.log(this.htmlTag);
+    this.prevBtn = new CustomBtn({
+      target: this.htmlTag,
+      tag: 'button',
+      className: 'prev',
+      onClick: () => {
+        console.log('prev');
+      },
+    });
+    this.nextBtn = new CustomBtn({
+      target: this.htmlTag,
+      tag: 'button',
+      className: 'next',
+      onClick: () => {
+        console.log('next');
+      },
+    });
+    this.prevBtn.htmlTag.innerHTML = 'prev';
+    this.nextBtn.htmlTag.innerHTML = 'next';
   }
   render() {
     if (this.state.isLoading) {

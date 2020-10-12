@@ -22,7 +22,7 @@ export class StateComponent extends StatelessComponent {
   render() {}
 }
 
-export default class ImageSection extends StateComponent {
+export class ImageSection extends StateComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,12 +33,6 @@ export default class ImageSection extends StateComponent {
 
     this.htmlTag.addEventListener('click', this.handleClick);
   }
-  toggleLoading() {
-    this.setState({
-      isLoading: !this.state.isLoading,
-    });
-  }
-
   handleClick = (e) => {
     if (e.target.nodeName !== 'IMG') return;
     this.onClick && this.onClick(e.target.dataset.id);

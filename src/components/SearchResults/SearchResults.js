@@ -1,4 +1,4 @@
-import ImageSection from '../factory/componentFactory.js';
+import { ImageSection } from '../factory/componentFactory.js';
 import imageTemplate from '../templates/imageTemplate.js';
 export default class SearchResults extends ImageSection {
   constructor(props) {
@@ -10,8 +10,6 @@ export default class SearchResults extends ImageSection {
     } else {
       if (!this.state.isError) {
         if (!this.state.data.length) {
-          console.log(this.state);
-          console.log('검색결과 없음');
           this.htmlTag.innerHTML = '검색결과가 없습니다';
         } else {
           this.htmlTag.innerHTML = this.state.data

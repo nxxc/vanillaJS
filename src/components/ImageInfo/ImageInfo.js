@@ -6,11 +6,7 @@ export default class ImageInfo extends StateComponent {
   constructor(props) {
     super(props);
   }
-  toggleLoading() {
-    this.setState({
-      isLoading: !this.state.isLoading,
-    });
-  }
+
   toggleVisible = (e) => {
     const { className } = e.target;
     const targetClass = ['popup', 'popup__close'];

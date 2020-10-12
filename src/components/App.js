@@ -20,7 +20,6 @@ class App {
       tag: 'header',
       className: 'search',
     });
-
     this.toggleBtn = new CustomBtn({
       target: this.header.htmlTag,
       tag: 'button',
@@ -28,15 +27,12 @@ class App {
       onClick: this._toggleDarkMode,
     });
     this.toggleBtn.htmlTag.innerHTML = 'toggle!';
-
-    // this.searchInput = new SearchInput(this.header.htmlTag, this._onSearch);
     this.searchInput = new SearchInput({
       target: this.header.htmlTag,
       tag: 'input',
       className: 'search__input',
       onSearch: this._onSearch,
     });
-
     this.randomBtn = new CustomBtn({
       target: this.header.htmlTag,
       tag: 'button',
@@ -44,16 +40,15 @@ class App {
       onClick: this._handleRandom,
     });
     this.randomBtn.htmlTag.innerHTML = '랜덤!';
-
     this.$target.appendChild(this.header.htmlTag);
+    this.searchRecent = new SearchRecent({
+      target: this.$target,
+      tag: 'p',
+      className: 'search__recent',
+      initialState: this.state.recentWords,
+    });
 
-    // this.searchRecent = new SearchRecent({
-    //   target: this.$target,
-    //   tag: 'p',
-    //   className: 'search__recent',
-    //   initialState: [],
-    // });
-
+    //Random images Section
     this.randomSlide = new RandomSlide({
       target: this.$target,
       tag: 'section',
@@ -72,7 +67,6 @@ class App {
     });
 
     //Popup
-
     this.imageInfo = new ImageInfo({
       target: this.$target,
       tag: 'div',
@@ -92,10 +86,15 @@ class App {
     this._handleRandom();
   };
   _handleRandom = async () => {
-    this.randomSlide.toggleLoading();
+    this.randomSlide.setState({
+      isLoading: true,
+    });
     const res = await fetchAPI.getRandomCats();
-    this.randomSlide.setState(res);
-    this.randomSlide.toggleLoading();
+    this.randomSlide.setState({
+      ...res,
+      isLoading: false,
+    });
+
     if (!res.isError) {
       this.setState({ randomCats: res.data });
       store.setData(storeKey.randomCats, res);
@@ -107,7 +106,7 @@ class App {
   };
 
   _onSearch = async (keyword) => {
-    // this._handleRecent(keyword);
+    this._handleRecent(keyword);
     this.searchResults.setState({
       isLoading: true,
     });
@@ -132,19 +131,19 @@ class App {
       ...imageInfo,
       isLoading: false,
     });
-    // this.imageInfo.toggleLoading();
   };
 
   _handleRecent = (value) => {
-    const createdAt = Date.now();
-    if (currentWords.length > 5) {
-      console.log(currentWords);
-      currentWords.shift();
+    console.log(this.state.recentWords);
+    const { data } = this.state.recentWords;
+    if (data.length === 5) {
+      data.shift();
     }
+    data.push(value);
     this.setState({
-      recentWords: currentWords,
+      recentWords: { data },
     });
-    this.searchRecent.setState(this.state.recentWords);
+    this.searchRecent.setState(this.setState.recentWords);
     store.setData(storeKey.recentWords, this.state.recentWords);
   };
 
