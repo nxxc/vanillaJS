@@ -18,7 +18,7 @@ const imageDetailTemplate = ({ data, isLoading }) => {
     <span>${name}</span>
     <div class="popup__close">x</div>
   </div>
-  <img src="${url}" alt="${name}"/>        
+  <img src="${url}" alt="${name} title=${name}"/>        
   <div class="popup__description">
     <div>성격: ${temperament}</div>
     <div>태생: ${origin}</div>

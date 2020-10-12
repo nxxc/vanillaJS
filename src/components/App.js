@@ -49,13 +49,36 @@ class App {
     });
 
     //Random images Section
-    this.randomSlide = new RandomSlide({
+    this.randomSection = new StatelessComponent({
       target: this.$target,
+      tag: 'div',
+      className: 'random',
+    });
+    this.randomSlide = new RandomSlide({
+      target: this.randomSection.htmlTag,
       tag: 'section',
       className: 'random__banner',
       initialState: this.state.randomCats,
       onClick: this._onImageClick,
     });
+    this.prevBtn = new CustomBtn({
+      target: this.randomSection.htmlTag,
+      tag: 'button',
+      className: 'random__btn--prev',
+      onClick: () => {
+        console.log('prev');
+      },
+    });
+    this.nextBtn = new CustomBtn({
+      target: this.randomSection.htmlTag,
+      tag: 'button',
+      className: 'random__btn--next',
+      onClick: () => {
+        console.log('next');
+      },
+    });
+    this.prevBtn.htmlTag.innerHTML = 'prev';
+    this.nextBtn.htmlTag.innerHTML = 'next';
 
     //resultsSection
     this.searchResults = new SearchResults({

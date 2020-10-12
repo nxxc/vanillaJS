@@ -1,8 +1,10 @@
 export class StatelessComponent {
   constructor(props) {
+    this.props = props;
+    this.target = props.target;
     this.htmlTag = document.createElement(props.tag);
     this.htmlTag.className = props.className;
-    props.target.appendChild(this.htmlTag);
+    this.target.appendChild(this.htmlTag);
   }
 }
 
