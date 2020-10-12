@@ -1,4 +1,5 @@
 const imageDetailTemplate = ({ data, isLoading }) => {
+  console.log(isLoading);
   const { name, url, temperament, origin } = data;
 
   return isLoading

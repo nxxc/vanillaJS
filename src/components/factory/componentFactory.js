@@ -1,16 +1,16 @@
 export class StatelessComponent {
-  constructor(target, tag, className) {
-    this.htmlTag = document.createElement(tag);
-    this.htmlTag.className = className;
-
-    target.appendChild(this.htmlTag);
+  constructor(props) {
+    this.htmlTag = document.createElement(props.tag);
+    this.htmlTag.className = props.className;
+    props.target.appendChild(this.htmlTag);
   }
 }
 
 export class StateComponent extends StatelessComponent {
-  constructor(target, tag, className, initialState) {
-    super(target, tag, className);
-    this.state = initialState;
+  constructor(props) {
+    super(props);
+    this.state = props.initialState;
+    this.render();
   }
   setState(nextData) {
     this.state = {
@@ -23,17 +23,15 @@ export class StateComponent extends StatelessComponent {
 }
 
 export default class ImageSection extends StateComponent {
-  constructor(target, tag, className, initialState, onClick) {
-    super(target, tag, className, initialState);
+  constructor(props) {
+    super(props);
     this.state = {
       ...this.state,
       isLoading: false,
     };
-    this.onClick = onClick;
+    this.onClick = props.onClick;
 
     this.htmlTag.addEventListener('click', this.handleClick);
-
-    this.render();
   }
   toggleLoading() {
     this.setState({
@@ -48,8 +46,8 @@ export default class ImageSection extends StateComponent {
 }
 
 export class CustomBtn extends StatelessComponent {
-  constructor(target, className, onClick) {
-    super(target, 'button', className);
-    this.htmlTag.addEventListener('click', onClick);
+  constructor(props) {
+    super(props);
+    this.htmlTag.addEventListener('click', props.onClick);
   }
 }

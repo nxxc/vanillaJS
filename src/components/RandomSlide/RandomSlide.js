@@ -1,8 +1,8 @@
 import ImageSection from '../factory/componentFactory.js';
 import imageTemplate from '../templates/imageTemplate.js';
 export default class RandomSlide extends ImageSection {
-  constructor(target, tag, className, initialState, onClick) {
-    super(...arguments);
+  constructor(props) {
+    super(props);
   }
   render() {
     if (this.state.isLoading) {

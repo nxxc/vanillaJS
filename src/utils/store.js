@@ -10,7 +10,7 @@ const defaultObj = {
 
 const getRecentWords = () => {
   const recentWords = JSON.parse(localStorage.getItem('recentWords'));
-  return recentWords ? recentWords : [];
+  return recentWords ? recentWords : defaultObj;
 };
 const getRandomData = () => {
   const randomCats = JSON.parse(localStorage.getItem('randomCats'));

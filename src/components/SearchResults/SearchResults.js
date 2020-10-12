@@ -1,8 +1,8 @@
 import ImageSection from '../factory/componentFactory.js';
 import imageTemplate from '../templates/imageTemplate.js';
 export default class SearchResults extends ImageSection {
-  constructor(target, tag, className, initialState, onClick) {
-    super(...arguments);
+  constructor(props) {
+    super(props);
   }
   render() {
     if (this.state.isLoading) {
@@ -10,6 +10,7 @@ export default class SearchResults extends ImageSection {
     } else {
       if (!this.state.isError) {
         if (!this.state.data.length) {
+          console.log(this.state);
           console.log('검색결과 없음');
           this.htmlTag.innerHTML = '검색결과가 없습니다';
         } else {
@@ -18,7 +19,6 @@ export default class SearchResults extends ImageSection {
             .join('');
         }
       } else {
-        console.log(this.state);
         this.htmlTag.innerHTML = 'Error! 다시 시도해 주세요';
       }
     }
