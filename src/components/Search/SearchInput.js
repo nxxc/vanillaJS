@@ -3,6 +3,7 @@ export default class SearchInput extends StatelessComponent {
   constructor(target, className, onSearch) {
     super(target, 'input', className);
     this.onSearch = onSearch;
+    this.htmlTag.setAttribute('autofocus', true);
     this.htmlTag.placeholder = '고양이를 검색하세요...';
 
     this.htmlTag.addEventListener('keypress', this.handleInput);

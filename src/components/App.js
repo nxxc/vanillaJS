@@ -16,7 +16,6 @@ class App {
       recentWords: store.getRecentWords(),
     };
     //header
-
     this.header = new StatelessComponent($target, 'header', 'search');
 
     this.toggleBtn = new CustomBtn(
@@ -72,7 +71,7 @@ class App {
     //initializing
     this.init();
   }
-  init = async () => {
+  init = () => {
     if (this.state.randomCats.data.length) return;
     this._handleRandom();
   };
@@ -86,6 +85,7 @@ class App {
       store.setData(storeKey.randomCats, res);
     }
   };
+
   _toggleDarkMode = () => {
     document.querySelector('body').classList.toggle('dark');
   };
