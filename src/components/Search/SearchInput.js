@@ -1,19 +1,13 @@
-export default class SearchInput {
-  constructor($target, onSearch) {
+import { StatelessComponent } from '../factory/componentFactory.js';
+export default class SearchInput extends StatelessComponent {
+  constructor(target, className, onSearch) {
+    super(target, 'input', className);
     this.onSearch = onSearch;
+    this.htmlTag.placeholder = '고양이를 검색하세요...';
 
-    this.searchInput = document.createElement('input');
-    this.searchInput.className = 'search__input';
-    this.searchInput.placeholder = '고양이를 검색하세요...';
-
-    this.searchInput.addEventListener('keypress', this.handleInput);
-    this.searchInput.addEventListener('focusin', (e) => {
-      e.target.value = '';
-    });
-
-    $target.appendChild(this.searchInput);
+    this.htmlTag.addEventListener('keypress', this.handleInput);
+    this.htmlTag.addEventListener('focusin', this.clearInput);
   }
-
   handleInput = (e) => {
     const {
       key,
@@ -24,6 +18,7 @@ export default class SearchInput {
       e.target.value = '';
     }
   };
-
-  render() {}
+  static clearInput = (e) => {
+    e.target.value = '';
+  };
 }
