@@ -1,0 +1,166 @@
+html {
+    box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+#App {
+    margin: 1.5em auto;
+    max-width: 1200px;
+    column-gap: 1.5em;
+}
+
+.results {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(250px, 1fr));
+    grid-gap: 10px;
+}
+/* 992px 이하: 3개
+  768px 이하: 2개
+  576px 이하: 1개 */
+
+@media (max-width: 992px) {
+    .results {
+        grid-template-columns: repeat(3, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .results {
+        grid-template-columns: repeat(2, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 576px) {
+    .results {
+        grid-template-columns: repeat(1, minmax(250px, 1fr));
+    }
+}
+.results img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.results__item {
+    background-color: #eee;
+    display: inline-block;
+    margin: 0 0 1em;
+    width: 100%;
+}
+
+.search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.search__recent{
+    display: flex;
+    justify-content: center;
+    padding:0;
+}
+
+.search__recent p{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.search__input {
+    width: 70%;
+    font-size: 40px;
+    padding: 10px 15px;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup__title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.popup__title,
+.popup__description {
+    padding: 5px;
+}
+
+.popup__content-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+.popup__content-wrapper img {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .popup__content-wrapper {
+        width:100%;
+    }
+}
+
+/* dark mode 처리 */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #000;
+        color: white;
+    }
+}
+
+.dark {
+    background-color: #000;
+    color: white;
+}
+
+.random{
+    position: relative;
+}
+
+.random__btn--prev{
+    width: 50px;
+    position: absolute;
+    bottom:0%;
+    left: 45%;
+}
+.random__btn--next{
+    width: 50px;
+    position: absolute;
+    bottom:0%;
+    left: 50%;
+}
+
+.random__banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 200px;
+    width: 100%;
+    /* background-color: bisque; */
+}
+
+.random__banner--item {
+    border: 1px solid black;
+    background-color: #eee;
+    display: flex;
+    width: 100%;
+}
+.random__banner--item img {
+    margin: auto;
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
