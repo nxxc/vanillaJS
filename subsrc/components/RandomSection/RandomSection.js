@@ -1,10 +1,17 @@
-import { CustomBtn, StateComponent } from '../factory/componentFactory.js';
+import store from '../../utils/store.js';
+import {
+  CustomBtn,
+  ImageSection,
+  StateComponent,
+} from '../factory/componentFactory.js';
+import imageTemplate from '../templates/imageTemplate.js';
 
-export default class RandomSection extends StateComponent {
+export default class RandomSection extends ImageSection {
   constructor(props) {
     super(props);
-    this.state = {};
-
+    this.state = {
+      data: store.getRandomData().data,
+    };
     this.randomSlide = new StateComponent({
       target: this.htmlTag,
       tag: 'section',
@@ -28,5 +35,14 @@ export default class RandomSection extends StateComponent {
       },
     });
     this.nextBtn.htmlTag.innerHTML = 'next';
+
+    this.render();
+  }
+
+  render() {
+    const data = this.state.data.slice(0, 5);
+    this.randomSlide.htmlTag.innerHTML = data
+      .map((cat, idx) => imageTemplate(cat, idx, 'random__banner--item'))
+      .join('');
   }
 }
