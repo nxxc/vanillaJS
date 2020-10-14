@@ -29,4 +29,6 @@ export default class RandomSection extends StateComponent {
     });
     this.nextBtn.htmlTag.innerHTML = 'next';
   }
+
+  render() {}
 }

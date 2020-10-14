@@ -18,6 +18,8 @@ export default class App {
       target: this.$target,
       tag: 'header',
       className: 'search',
+      setRandomCats: this.setRandomCats,
+      setCurrentData: this.setCurrentData,
     });
     this.recentWords = new RecentWords({
       target: this.$target,
@@ -66,5 +68,7 @@ export default class App {
     };
     this.render();
   }
-  render() {}
+  render() {
+    console.log(this.state);
+  }
 }
