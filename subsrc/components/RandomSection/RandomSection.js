@@ -1,3 +1,4 @@
+import store from '../../utils/store.js';
 import {
   CustomBtn,
   ImageSection,
@@ -9,7 +10,7 @@ export default class RandomSection extends ImageSection {
   constructor(props) {
     super(props);
     this.state = {
-      data: props.data.data,
+      data: store.getRandomData().data,
     };
     this.randomSlide = new StateComponent({
       target: this.htmlTag,

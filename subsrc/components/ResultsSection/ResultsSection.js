@@ -1,12 +1,13 @@
 import imageTemplate from '../templates/imageTemplate.js';
 
 import { ImageSection, StateComponent } from '../factory/componentFactory.js';
+import store from '../../utils/store.js';
 
 export default class ResultsSection extends ImageSection {
   constructor(props) {
     super(props);
     this.state = {
-      data: props.data.data,
+      data: store.getCurrentData().data,
     };
 
     this.render();
