@@ -21,6 +21,7 @@ export default class SearchHeader extends StateComponent {
       tag: 'input',
       className: 'search__input',
       onSearch: this.searchData,
+      setRecentWords: this.props.setRecentWords,
     });
 
     this.randomBtn = new SearchRandomBtn({
