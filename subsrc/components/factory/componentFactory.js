@@ -26,12 +26,7 @@ export class StateComponent extends StatelessComponent {
 export class ImageSection extends StateComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      ...this.state,
-      isLoading: false,
-    };
     this.onClick = props.onClick;
-
     this.htmlTag.addEventListener('click', this.handleClick);
   }
   handleClick = (e) => {

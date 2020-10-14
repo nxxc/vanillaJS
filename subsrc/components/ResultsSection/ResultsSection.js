@@ -1,8 +1,8 @@
 import imageTemplate from '../templates/imageTemplate.js';
 
-import { StateComponent } from '../factory/componentFactory.js';
+import { ImageSection, StateComponent } from '../factory/componentFactory.js';
 
-export default class ResultsSection extends StateComponent {
+export default class ResultsSection extends ImageSection {
   constructor(props) {
     super(props);
     this.state = {

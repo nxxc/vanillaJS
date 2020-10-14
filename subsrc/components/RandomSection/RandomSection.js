@@ -1,7 +1,11 @@
-import { CustomBtn, StateComponent } from '../factory/componentFactory.js';
+import {
+  CustomBtn,
+  ImageSection,
+  StateComponent,
+} from '../factory/componentFactory.js';
 import imageTemplate from '../templates/imageTemplate.js';
 
-export default class RandomSection extends StateComponent {
+export default class RandomSection extends ImageSection {
   constructor(props) {
     super(props);
     this.state = {

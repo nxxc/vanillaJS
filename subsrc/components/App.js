@@ -4,6 +4,7 @@ import RandomSection from './RandomSection/RandomSection.js';
 import RecentWords from './RecentWords/RecentWords.js';
 import ResultsSection from './ResultsSection/ResultsSection.js';
 import SearchHeader from './SearchHeader/SearchHeader.js';
+import fetchAPI from '../../src/utils/api.js';
 
 export default class App {
   constructor($target) {
@@ -31,12 +32,14 @@ export default class App {
       tag: 'div',
       className: 'random',
       data: this.state.randomCats,
+      onClick: this.onImageClick,
     });
     this.resultsSection = new ResultsSection({
       target: this.$target,
       tag: 'section',
       className: 'results',
       data: this.state.currentData,
+      onClick: this.onImageClick,
     });
     this.imagePopup = new ImageInfo({
       target: this.$target,
@@ -64,6 +67,14 @@ export default class App {
   setRecentWords = (data) => {
     this.setState({
       setRecentWords: data,
+    });
+  };
+
+  onImageClick = async (id) => {
+    const imageInfo = await fetchAPI.getCatInfoById(id);
+    this.imagePopup.setState({
+      visible: true,
+      ...imageInfo,
     });
   };
 
