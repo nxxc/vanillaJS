@@ -1,5 +1,5 @@
 import ImageInfo from './ImageInfo/ImageInfo.js';
-import store from '../utils/store.js';
+import store, { storeKey } from '../utils/store.js';
 import RandomSection from './RandomSection/RandomSection.js';
 import RecentWords from './RecentWords/RecentWords.js';
 import ResultsSection from './ResultsSection/ResultsSection.js';
@@ -30,11 +30,13 @@ export default class App {
       target: this.$target,
       tag: 'div',
       className: 'random',
+      data: this.state.randomCats,
     });
     this.resultsSection = new ResultsSection({
       target: this.$target,
       tag: 'section',
       className: 'results',
+      data: this.state.currentData,
     });
     this.imagePopup = new ImageInfo({
       target: this.$target,
@@ -47,12 +49,16 @@ export default class App {
     this.setState({
       currentData: data,
     });
+    this.resultsSection.setState(data);
+    store.setData(storeKey.currentData, data);
   };
 
   setRandomCats = (data) => {
     this.setState({
       randomCats: data,
     });
+    this.randomSection.setState(data);
+    store.setData(storeKey.randomCats, data);
   };
 
   setRecentWords = (data) => {
