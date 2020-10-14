@@ -71,8 +71,14 @@ export default class App {
   };
 
   onImageClick = async (id) => {
+    this.imagePopup.setState({
+      isLoading: true,
+      visible: true,
+      data: [],
+    });
     const imageInfo = await fetchAPI.getCatInfoById(id);
     this.imagePopup.setState({
+      isLoading: false,
       visible: true,
       ...imageInfo,
     });
