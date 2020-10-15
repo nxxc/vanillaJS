@@ -22,7 +22,8 @@ export default class App {
     this.recentWords = new RecentWords({
       target: this.$target,
       tag: 'p',
-      className: 'search__recent',
+      className: 'recent',
+      setCurrentData: this.setCurrentData,
     });
     this.randomSection = new RandomSection({
       target: this.$target,

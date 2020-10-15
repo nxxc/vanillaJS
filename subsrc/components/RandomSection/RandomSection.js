@@ -40,7 +40,6 @@ export default class RandomSection extends ImageSection {
   }
 
   render() {
-    console.log(this.state);
     if (this.state.isLoading) {
       this.randomSlide.htmlTag.innerHTML = 'Loading...';
       return;

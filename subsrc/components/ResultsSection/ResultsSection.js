@@ -13,7 +13,6 @@ export default class ResultsSection extends ImageSection {
     this.render();
   }
   render() {
-    console.log(this.state);
     if (this.state.isLoading) {
       this.htmlTag.innerHTML = 'Loading...';
       return;
