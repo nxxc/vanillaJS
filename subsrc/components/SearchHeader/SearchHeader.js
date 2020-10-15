@@ -37,12 +37,24 @@ export default class SearchHeader extends StateComponent {
   };
 
   searchData = async (keyword) => {
+    this.props.setCurrentData({
+      isLoading: true,
+    });
     const res = await fetchAPI.getCats(keyword);
-    this.props.setCurrentData(res);
+    this.props.setCurrentData({
+      isLoading: false,
+      ...res,
+    });
   };
 
   searchRandomCats = async () => {
+    this.props.setRandomCats({
+      isLoading: true,
+    });
     const res = await fetchAPI.getRandomCats();
-    this.props.setRandomCats(res);
+    this.props.setRandomCats({
+      isLoading: false,
+      ...res,
+    });
   };
 }

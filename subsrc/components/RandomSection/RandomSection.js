@@ -40,9 +40,26 @@ export default class RandomSection extends ImageSection {
   }
 
   render() {
-    const data = this.state.data.slice(0, 5);
-    this.randomSlide.htmlTag.innerHTML = data
-      .map((cat, idx) => imageTemplate(cat, idx, 'random__banner--item'))
-      .join('');
+    console.log(this.state);
+    if (this.state.isLoading) {
+      this.randomSlide.htmlTag.innerHTML = 'Loading...';
+      return;
+    }
+    if (!this.state.isError) {
+      if (!this.state.data.length) {
+        this.randomSlide.htmlTag.innerHTML = '검색결과가 없습니다';
+      } else {
+        const data = this.state.data.slice(0, 5);
+        this.randomSlide.htmlTag.innerHTML = data
+          .map((cat, idx) => imageTemplate(cat, idx, 'random__banner--item'))
+          .join('');
+      }
+    } else {
+      this.randomSlide.htmlTag.innerHTML = `
+        Error 발생!
+        status:${this.state.status}
+        message:${this.state.message}
+        `;
+    }
   }
 }
