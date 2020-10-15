@@ -29,7 +29,7 @@ export default class SearchInput extends StateComponent {
     data.push(value);
     this.props.setRecentWords({ data });
   };
-  static clearInput = (e) => {
+  clearInput = (e) => {
     e.target.value = '';
   };
 }

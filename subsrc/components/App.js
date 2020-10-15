@@ -22,7 +22,8 @@ export default class App {
     this.recentWords = new RecentWords({
       target: this.$target,
       tag: 'p',
-      className: 'search__recent',
+      className: 'recent',
+      setCurrentData: this.setCurrentData,
     });
     this.randomSection = new RandomSection({
       target: this.$target,
@@ -42,14 +43,24 @@ export default class App {
       className: 'popup',
     });
 
+    this.imageList = document.querySelectorAll('.image');
     this.init();
   }
 
   init = async () => {
     if (this.randomSection.state.data.length) return;
+    this.randomSection.setState({
+      isLoading: true,
+    });
     const initialRandomCats = await fetchAPI.getRandomCats();
-    this.randomSection.setState(initialRandomCats);
-    store.setData(storeKey.randomCats, initialRandomCats);
+    this.randomSection.setState({
+      isLoading: false,
+      ...initialRandomCats,
+    });
+    store.setData(storeKey.randomCats, {
+      isLoading: false,
+      ...initialRandomCats,
+    });
   };
 
   setCurrentData = (data) => {
@@ -76,7 +87,7 @@ export default class App {
     const imageInfo = await fetchAPI.getCatInfoById(id);
     this.imagePopup.setState({
       isLoading: false,
-      visible: true,
+      // visible: true,
       ...imageInfo,
     });
   };

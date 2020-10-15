@@ -13,17 +13,29 @@ export default class ImageInfo extends StateComponent {
   }
   closePopup = (e) => {
     const { className } = e.target;
-    const targetClass = ['popup', 'popup__close'];
+    const targetClass = ['popup fade-in', 'popup__close'];
     if (targetClass.includes(className)) {
-      this.htmlTag.style.display = 'none';
+      this.htmlTag.classList.remove('fade-in');
+      this.htmlTag.classList.add('fade-out');
+      this.htmlTag.addEventListener('animationend', this.toggleDisplay, {
+        once: true,
+      });
     }
     this.state.visible = !this.state.visible;
   };
+  toggleDisplay = () => {
+    this.htmlTag.style.display = 'none';
+  };
+
   render() {
     if (!this.state.visible) return;
+
     if (this.state.isLoading) {
-      this.htmlTag.style.display = 'block';
+      console.log('rendering.....');
+      this.htmlTag.classList.remove('fade-out');
+      this.htmlTag.classList.add('fade-in');
       this.htmlTag.innerHTML = imageDetailTemplate(this.state);
+      this.htmlTag.style.display = 'block';
     } else {
       if (this.state.isError) {
         this.htmlTag.style.display = 'none';

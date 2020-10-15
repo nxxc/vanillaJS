@@ -12,10 +12,24 @@ html {
     column-gap: 1.5em;
 }
 
+button{
+    height: 1.5rem;
+    padding: 0 0.5rem;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+button:hover{
+    cursor: pointer;
+}
+
+
 .results {
     margin-top: 10px;
     display: grid;
     grid-template-columns: repeat(4, minmax(250px, 1fr));
+    /* grid-template-rows: minmax(250px,1fr); */
+    grid-auto-rows: 250px;
     grid-gap: 10px;
 }
 /* 992px 이하: 3개
@@ -56,21 +70,32 @@ html {
     justify-content: space-between;
     align-items: center;
 }
-.search__recent{
-    display: flex;
-    justify-content: center;
-    padding:0;
-}
 
-.search__recent p{
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-}
 
 .search__input {
     width: 70%;
     font-size: 40px;
     padding: 10px 15px;
+}
+
+.recent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:0;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.recent__word{
+    margin-left: 5px;
+    padding: 5px 10px;
+    
+    border-radius: 10px;
+    background-color: #eee;
+}
+
+.recent__word:hover{
+    cursor: pointer;
 }
 
 .popup {
@@ -86,6 +111,10 @@ html {
 .popup__title {
     display: flex;
     justify-content: space-between;
+}
+
+.popup__close:hover{
+    cursor: pointer;
 }
 
 .popup__title,
@@ -164,3 +193,27 @@ html {
     object-fit: cover;
 }
 
+
+.fade-in{
+    animation: fadeIn 0.5s 
+}
+.fade-out{
+    animation: fadeOut 0.5s;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut{
+    from{
+        opacity: 1;
+    }to{
+        opacity: 0;
+    }
+}
