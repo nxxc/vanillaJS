@@ -13,6 +13,7 @@ export default class RecentWords extends StateComponent {
   }
 
   onSearch = async (e) => {
+    if (e.target.className !== 'recent__word') return;
     const keyword = e.target.innerText;
     this.props.setCurrentData({
       isLoading: true,

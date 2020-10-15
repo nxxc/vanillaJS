@@ -2,7 +2,7 @@ import imageTemplate from '../templates/imageTemplate.js';
 import { ImageSection } from '../factory/componentFactory.js';
 import store from '../../utils/store.js';
 
-const io = new IntersectionObserver((entries, observer) => {
+const lazyLoadingObserver = new IntersectionObserver((entries, observer) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
       entry.target.src = entry.target.dataset.src;
@@ -43,7 +43,7 @@ export default class ResultsSection extends ImageSection {
 
     this.imageList = document.querySelectorAll('.results__item .image');
     this.imageList.forEach((el) => {
-      io.observe(el);
+      lazyLoadingObserver.observe(el);
     });
   }
 }

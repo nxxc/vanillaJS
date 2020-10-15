@@ -12,6 +12,18 @@ html {
     column-gap: 1.5em;
 }
 
+button{
+    height: 1.5rem;
+    padding: 0 0.5rem;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+button:hover{
+    cursor: pointer;
+}
+
+
 .results {
     margin-top: 10px;
     display: grid;
