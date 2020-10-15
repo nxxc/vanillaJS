@@ -43,6 +43,7 @@ export default class App {
       className: 'popup',
     });
 
+    this.imageList = document.querySelectorAll('.image');
     this.init();
   }
 

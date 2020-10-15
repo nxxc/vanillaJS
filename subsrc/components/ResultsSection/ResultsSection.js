@@ -1,7 +1,15 @@
 import imageTemplate from '../templates/imageTemplate.js';
-
-import { ImageSection, StateComponent } from '../factory/componentFactory.js';
+import { ImageSection } from '../factory/componentFactory.js';
 import store from '../../utils/store.js';
+
+const io = new IntersectionObserver((entries, observer) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.src = entry.target.dataset.src;
+      observer.unobserve(entry.target);
+    }
+  });
+});
 
 export default class ResultsSection extends ImageSection {
   constructor(props) {
@@ -32,5 +40,10 @@ export default class ResultsSection extends ImageSection {
       message:${this.state.message}
       `;
     }
+
+    this.imageList = document.querySelectorAll('.results__item .image');
+    this.imageList.forEach((el) => {
+      io.observe(el);
+    });
   }
 }
