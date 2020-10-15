@@ -49,9 +49,18 @@ export default class App {
 
   init = async () => {
     if (this.randomSection.state.data.length) return;
+    this.randomSection.setState({
+      isLoading: true,
+    });
     const initialRandomCats = await fetchAPI.getRandomCats();
-    this.randomSection.setState(initialRandomCats);
-    store.setData(storeKey.randomCats, initialRandomCats);
+    this.randomSection.setState({
+      isLoading: false,
+      ...initialRandomCats,
+    });
+    store.setData(storeKey.randomCats, {
+      isLoading: false,
+      ...initialRandomCats,
+    });
   };
 
   setCurrentData = (data) => {
@@ -78,7 +87,7 @@ export default class App {
     const imageInfo = await fetchAPI.getCatInfoById(id);
     this.imagePopup.setState({
       isLoading: false,
-      visible: true,
+      // visible: true,
       ...imageInfo,
     });
   };
