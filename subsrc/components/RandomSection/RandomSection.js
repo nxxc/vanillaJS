@@ -5,6 +5,7 @@ import {
   StateComponent,
 } from '../factory/componentFactory.js';
 import imageTemplate from '../templates/imageTemplate.js';
+import LoadingTemplate from '../templates/LoadingTemplate.js';
 
 export default class RandomSection extends ImageSection {
   constructor(props) {
@@ -41,7 +42,8 @@ export default class RandomSection extends ImageSection {
 
   render() {
     if (this.state.isLoading) {
-      this.randomSlide.htmlTag.innerHTML = 'Loading...';
+      this.randomSlide.htmlTag.innerHTML = LoadingTemplate;
+
       return;
     }
     if (!this.state.isError) {

@@ -6,8 +6,13 @@ export default class ImageInfo extends StateComponent {
     super(props);
     this.htmlTag.addEventListener('click', this.closePopup);
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        this.closePopup;
+      if (e.key === 'Escape' && this.state.visible) {
+        this.htmlTag.classList.remove('fade-in');
+        this.htmlTag.classList.add('fade-out');
+        this.htmlTag.addEventListener('animationend', this.turnOffDisplay, {
+          once: true,
+        });
+        this.state.visible = false;
       }
     });
   }
@@ -17,31 +22,25 @@ export default class ImageInfo extends StateComponent {
     if (targetClass.includes(className)) {
       this.htmlTag.classList.remove('fade-in');
       this.htmlTag.classList.add('fade-out');
-      this.htmlTag.addEventListener('animationend', this.toggleDisplay, {
+      this.htmlTag.addEventListener('animationend', this.turnOffDisplay, {
         once: true,
       });
+      this.state.visible = false;
     }
-    this.state.visible = !this.state.visible;
   };
-  toggleDisplay = () => {
+  turnOffDisplay = () => {
     this.htmlTag.style.display = 'none';
   };
 
   render() {
     if (!this.state.visible) return;
-
     if (this.state.isLoading) {
-      console.log('rendering.....');
       this.htmlTag.classList.remove('fade-out');
       this.htmlTag.classList.add('fade-in');
       this.htmlTag.innerHTML = imageDetailTemplate(this.state);
       this.htmlTag.style.display = 'block';
     } else {
-      if (this.state.isError) {
-        this.htmlTag.style.display = 'none';
-      } else if (!this.state.isError) {
-        this.htmlTag.innerHTML = imageDetailTemplate(this.state);
-      }
+      this.htmlTag.innerHTML = imageDetailTemplate(this.state);
     }
   }
 }

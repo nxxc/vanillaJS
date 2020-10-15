@@ -28,9 +28,9 @@ button:hover{
     margin-top: 10px;
     display: grid;
     grid-template-columns: repeat(4, minmax(250px, 1fr));
-    /* grid-template-rows: minmax(250px,1fr); */
     grid-auto-rows: 250px;
     grid-gap: 10px;
+    height: 50vh;
 }
 /* 992px 이하: 3개
   768px 이하: 2개
@@ -53,7 +53,7 @@ button:hover{
         grid-template-columns: repeat(1, minmax(250px, 1fr));
     }
 }
-.results img {
+.results .image {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -173,7 +173,7 @@ button:hover{
 
 .random__banner {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     height: 200px;
     width: 100%;
@@ -217,3 +217,47 @@ button:hover{
         opacity: 0;
     }
 }
+
+
+.lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+.lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid #fff;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: rgb(109, 109, 109) transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+0% {
+    transform: rotate(0deg);
+}
+100% {
+    transform: rotate(360deg);
+}
+}
+
+.results.loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
