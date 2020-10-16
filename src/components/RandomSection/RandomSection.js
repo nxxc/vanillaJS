@@ -6,7 +6,7 @@ import {
 } from '../factory/componentFactory.js';
 import ImageTemplate from '../templates/ImageTemplate.js';
 import LoadingTemplate from '../templates/LoadingTemplate.js';
-
+import lazyLoadingObserver from '../../utils/lazyLoading.js';
 export default class RandomSection extends ImageSection {
   constructor(props) {
     super(props);
@@ -54,7 +54,8 @@ export default class RandomSection extends ImageSection {
     let currentRight = parseFloat(
       this.itemClass.style.right.slice(0, this.itemClass.style.right.length - 2)
     );
-    if (currentRight === this.width * 9) currentRight = -width;
+    console.log(currentRight);
+    if (currentRight === width * 9) currentRight = -width;
     this.itemClass.style.right = `${currentRight + width}px`;
   };
 
@@ -81,5 +82,10 @@ export default class RandomSection extends ImageSection {
         `;
       }
     }
+    const imageList = document.querySelectorAll('.random__banner--item .image');
+    console.log(imageList);
+    imageList.forEach((el) => {
+      lazyLoadingObserver.observe(el);
+    });
   }
 }

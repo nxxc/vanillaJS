@@ -2,15 +2,7 @@ import ImageTemplate from '../templates/imageTemplate.js';
 import { ImageSection } from '../factory/componentFactory.js';
 import store from '../../utils/store.js';
 import LoadingTemplate from '../templates/LoadingTemplate.js';
-
-const lazyLoadingObserver = new IntersectionObserver((entries, observer) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.src = entry.target.dataset.src;
-      observer.unobserve(entry.target);
-    }
-  });
-});
+import lazyLoadingObserver from '../../utils/lazyLoading.js';
 
 export default class ResultsSection extends ImageSection {
   constructor(props) {
@@ -43,8 +35,8 @@ export default class ResultsSection extends ImageSection {
       `;
       }
 
-      this.imageList = document.querySelectorAll('.results__item .image');
-      this.imageList.forEach((el) => {
+      const imageList = document.querySelectorAll('.results__item .image');
+      imageList.forEach((el) => {
         lazyLoadingObserver.observe(el);
       });
     }
