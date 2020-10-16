@@ -56,7 +56,7 @@ button:hover{
 .results .image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fill;
 }
 .results__item {
     background-color: #eee;
@@ -67,14 +67,15 @@ button:hover{
 
 .search {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 
 
 .search__input {
-    width: 70%;
-    font-size: 40px;
+    width: 60%;
+    height: 3rem;
+    font-size: 20px;
     padding: 10px 15px;
 }
 
@@ -138,6 +139,7 @@ button:hover{
 @media (max-width: 768px) {
     .popup__content-wrapper {
         width:100%;
+        
     }
 }
 
@@ -156,41 +158,51 @@ button:hover{
 
 .random{
     position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: auto;
+    grid-template-areas: 
+    "bn bn bn bn"
+    ". prev-btn next-btn .";
 }
 
 .random__btn--prev{
     width: 50px;
-    position: absolute;
-    bottom:0%;
-    left: 45%;
+    grid-area: prev-btn;
+    justify-self: end;
+    margin-right: 1rem;
 }
 .random__btn--next{
     width: 50px;
-    position: absolute;
-    bottom:0%;
-    left: 50%;
+    grid-area:next-btn;
+    margin-left : 1rem;
 }
 
 .random__banner {
-    display: flex;
-    justify-content: center;
+    grid-area: bn;
+    display: grid;
+    grid-template-columns: repeat(50,20%);
+    /* column-gap: 0.5rem; */
+    /* justify-content: center; */
     align-items: center;
-    height: 200px;
-    width: 100%;
-    /* background-color: bisque; */
+    height: 150px;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
 }
 
 .random__banner--item {
-    border: 1px solid black;
-    background-color: #eee;
-    display: flex;
+    position: relative;
+    background-color: #eee; 
+    right : 0px;
+    height: 150px;
     width: 100%;
+    transition: 0.7s ease;
 }
 .random__banner--item img {
     margin: auto;
     width: 100%;
     height: 150px;
-    object-fit: cover;
+    object-fit: fill;
 }
 
 
@@ -261,3 +273,8 @@ animation-delay: -0.15s;
     align-items: center;
 }
 
+.random__banner.loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
