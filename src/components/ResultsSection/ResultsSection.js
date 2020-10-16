@@ -1,4 +1,4 @@
-import imageTemplate from '../templates/imageTemplate.js';
+import ImageTemplate from '../templates/imageTemplate.js';
 import { ImageSection } from '../factory/componentFactory.js';
 import store from '../../utils/store.js';
 import LoadingTemplate from '../templates/LoadingTemplate.js';
@@ -32,7 +32,7 @@ export default class ResultsSection extends ImageSection {
           this.htmlTag.innerHTML = '검색결과가 없습니다';
         } else {
           this.htmlTag.innerHTML = this.state.data
-            .map((cat, idx) => imageTemplate(cat, idx, 'results__item'))
+            .map((cat, idx) => ImageTemplate(cat, idx, 'results__item'))
             .join('');
         }
       } else {
