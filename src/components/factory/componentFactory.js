@@ -6,13 +6,21 @@ export class StatelessComponent {
     this.htmlTag.className = props.className;
     this.target.appendChild(this.htmlTag);
   }
+  classSelector = (className) => {
+    const styleSheet = document.styleSheets[0];
+    const cssRulesArr = Array.from(styleSheet.cssRules);
+    for (const rule of cssRulesArr) {
+      if (rule.selectorText === className) {
+        return rule;
+      }
+    }
+  };
 }
 
 export class StateComponent extends StatelessComponent {
   constructor(props) {
     super(props);
     this.state = {};
-    this.render();
   }
   setState(nextData) {
     this.state = {
@@ -27,12 +35,7 @@ export class StateComponent extends StatelessComponent {
 export class ImageSection extends StateComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      ...this.state,
-      isLoading: false,
-    };
     this.onClick = props.onClick;
-
     this.htmlTag.addEventListener('click', this.handleClick);
   }
   handleClick = (e) => {
