@@ -4,7 +4,7 @@ import RandomSection from './RandomSection/RandomSection.js';
 import RecentWords from './RecentWords/RecentWords.js';
 import ResultsSection from './ResultsSection/ResultsSection.js';
 import SearchHeader from './SearchHeader/SearchHeader.js';
-import fetchAPI from '../../src/utils/api.js';
+import fetchAPI from '../utils/api.js';
 
 export default class App {
   constructor($target) {
