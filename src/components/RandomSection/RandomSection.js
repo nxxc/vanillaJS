@@ -4,7 +4,7 @@ import {
   ImageSection,
   StateComponent,
 } from '../factory/componentFactory.js';
-import ImageTemplate from '../templates/ImageTemplate.js';
+import ImageTemplate from '../templates/ImageTemplate.js.js';
 import LoadingTemplate from '../templates/LoadingTemplate.js';
 
 export default class RandomSection extends ImageSection {
