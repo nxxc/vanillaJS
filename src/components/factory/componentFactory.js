@@ -6,11 +6,11 @@ export class StatelessComponent {
     this.htmlTag.className = props.className;
     this.target.appendChild(this.htmlTag);
   }
-  classSelector = (className) => {
+  cssPropertySelector = (selector) => {
     const styleSheet = document.styleSheets[0];
     const cssRulesArr = Array.from(styleSheet.cssRules);
     for (const rule of cssRulesArr) {
-      if (rule.selectorText === className) {
+      if (rule.selectorText === selector) {
         return rule;
       }
     }

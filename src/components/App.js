@@ -5,42 +5,41 @@ import RecentWords from './RecentWords/RecentWords.js';
 import ResultsSection from './ResultsSection/ResultsSection.js';
 import SearchHeader from './SearchHeader/SearchHeader.js';
 import fetchAPI from '../utils/api.js';
+import { htmlTag, classNames } from '../share/html.js';
 
 export default class App {
   constructor($target) {
     this.$target = $target;
-    this.state = {};
-
     this.searchHeader = new SearchHeader({
       target: this.$target,
-      tag: 'header',
-      className: 'search',
+      tag: htmlTag.header,
+      className: classNames.SearchHeader.root,
       setRandomCats: this.setRandomCats,
       setCurrentData: this.setCurrentData,
       setRecentWords: this.setRecentWords,
     });
     this.recentWords = new RecentWords({
       target: this.$target,
-      tag: 'p',
-      className: 'recent',
+      tag: htmlTag.p,
+      className: classNames.RecentWords.root,
       setCurrentData: this.setCurrentData,
     });
     this.randomSection = new RandomSection({
       target: this.$target,
-      tag: 'div',
-      className: 'random',
+      tag: htmlTag.div,
+      className: classNames.RandomSection.root,
       onClick: this.onImageClick,
     });
     this.resultsSection = new ResultsSection({
       target: this.$target,
-      tag: 'section',
-      className: 'results',
+      tag: htmlTag.section,
+      className: classNames.ResultSection.root,
       onClick: this.onImageClick,
     });
     this.imagePopup = new ImageInfo({
       target: this.$target,
-      tag: 'div',
-      className: 'popup',
+      tag: htmlTag.div,
+      className: classNames.Popup.root,
     });
 
     this.init();
@@ -91,12 +90,12 @@ export default class App {
     });
   };
 
-  setState(nextData) {
-    this.state = {
-      ...this.state,
-      ...nextData,
-    };
-    // this.render();
-  }
+  // setState(nextData) {
+  //   this.state = {
+  //     ...this.state,
+  //     ...nextData,
+  //   };
+  // this.render();
+  // }
   // render() {}
 }
