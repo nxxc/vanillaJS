@@ -7,6 +7,7 @@ import {
 import ImageTemplate from '../templates/ImageTemplate.js';
 import LoadingTemplate from '../templates/LoadingTemplate.js';
 import lazyLoadingObserver from '../../utils/lazyLoading.js';
+import { classNames, htmlTag } from '../../share/html.js';
 export default class RandomSection extends ImageSection {
   constructor(props) {
     super(props);
@@ -16,22 +17,22 @@ export default class RandomSection extends ImageSection {
 
     this.randomSlide = new StateComponent({
       target: this.htmlTag,
-      tag: 'section',
-      className: 'random__banner',
+      tag: htmlTag.section,
+      className: classNames.RandomSection.randomSlide,
     });
 
     this.prevBtn = new CustomBtn({
       target: this.htmlTag,
-      tag: 'button',
-      className: 'random__btn--prev',
+      tag: htmlTag.button,
+      className: classNames.RandomSection.prevBtn,
       onClick: this.onPrevBtnClick,
     });
     this.prevBtn.htmlTag.innerHTML = 'prev';
 
     this.nextBtn = new CustomBtn({
       target: this.htmlTag,
-      tag: 'button',
-      className: 'random__btn--next',
+      tag: htmlTag.button,
+      className: classNames.RandomSection.nextBtn,
       onClick: this.onNextBtnClick,
     });
     this.nextBtn.htmlTag.innerHTML = 'next';
@@ -40,7 +41,9 @@ export default class RandomSection extends ImageSection {
   }
 
   onPrevBtnClick = () => {
-    const itemClass = this.cssPropertySelector('.random__banner--item');
+    const itemClass = this.cssPropertySelector(
+      `.${classNames.RandomSection.imageArticle}`
+    );
     const width = this.randomSlide.htmlTag.getBoundingClientRect().width;
     let currentRight = parseFloat(
       itemClass.style.right.slice(0, itemClass.style.right.length - 2)
@@ -50,7 +53,9 @@ export default class RandomSection extends ImageSection {
   };
 
   onNextBtnClick = () => {
-    const itemClass = this.cssPropertySelector('.random__banner--item');
+    const itemClass = this.cssPropertySelector(
+      `.${classNames.RandomSection.imageArticle}`
+    );
     const width = this.randomSlide.htmlTag.getBoundingClientRect().width;
     let currentRight = parseFloat(
       itemClass.style.right.slice(0, itemClass.style.right.length - 2)
@@ -60,21 +65,21 @@ export default class RandomSection extends ImageSection {
     itemClass.style.right = `${currentRight + width}px`;
   };
 
-  setStyle = () => {};
-
   render() {
     if (this.state.isLoading) {
       this.randomSlide.htmlTag.innerHTML = LoadingTemplate;
-      this.randomSlide.htmlTag.classList.add('loading');
+      this.randomSlide.htmlTag.classList.add(classNames.loading);
     } else {
-      this.randomSlide.htmlTag.classList.remove('loading');
+      this.randomSlide.htmlTag.classList.remove(classNames.loading);
       if (!this.state.isError) {
         if (!this.state.data.length) {
           this.randomSlide.htmlTag.innerHTML = '검색결과가 없습니다';
         } else {
           // const data = this.state.data.slice(0, 5);
           this.randomSlide.htmlTag.innerHTML = this.state.data
-            .map((cat, idx) => ImageTemplate(cat, idx, 'random__banner--item'))
+            .map((cat, idx) =>
+              ImageTemplate(cat, idx, classNames.RandomSection.imageArticle)
+            )
             .join('');
         }
       } else {
@@ -85,7 +90,9 @@ export default class RandomSection extends ImageSection {
         `;
       }
     }
-    const imageList = document.querySelectorAll('.random__banner--item .image');
+    const imageList = document.querySelectorAll(
+      `.${classNames.RandomSection.imageArticle} .${classNames.articleImage}`
+    );
     imageList.forEach((el) => {
       lazyLoadingObserver.observe(el);
     });

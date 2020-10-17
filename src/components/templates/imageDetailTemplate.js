@@ -1,20 +1,21 @@
 import LoadingTemplate from './LoadingTemplate.js';
+import { classNames } from '../../share/html.js';
 
 const ImageDetailTemplate = ({ data, isLoading, isError }) => {
   const { name, url, temperament, origin } = data;
-  const Loading = ` <div class="popup__content-wrapper"> ${LoadingTemplate} </div> `;
+  const Loading = ` <div class="${classNames.Popup.wrapper}"> ${LoadingTemplate} </div> `;
 
-  const ErrorTemplate = ` <div class="popup__content-wrapper">
+  const ErrorTemplate = ` <div class="${classNames.Popup.wrapper}">
                              <p>Error! 다시 시도해 주세요</p> 
                           </div>`;
 
-  const Complete = ` <div class="popup__content-wrapper"> 
-                        <div class="popup__title"> 
+  const Complete = ` <div class="${classNames.Popup.wrapper}"> 
+                        <div class="${classNames.Popup.title}"> 
                           <span>${name}</span> 
-                          <div class="popup__close">x</div> 
+                          <div class="${classNames.Popup.closeBtn}">x</div> 
                         </div> 
                         <img src="${url}" alt="${name}" title="${name}"/> 
-                        <div class="popup__description">
+                        <div class="${classNames.Popup.description}">
                             <div>성격: ${temperament}</div>
                             <div>태생: ${origin}</div>
                         </div> 

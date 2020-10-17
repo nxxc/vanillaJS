@@ -1,6 +1,7 @@
 import fetchAPI from '../../utils/api.js';
 import store from '../../utils/store.js';
 import { StateComponent } from '../factory/componentFactory.js';
+import { classNames } from '../../share/html.js';
 
 export default class RecentWords extends StateComponent {
   constructor(props) {
@@ -13,7 +14,7 @@ export default class RecentWords extends StateComponent {
   }
 
   onSearch = async (e) => {
-    if (e.target.className !== 'recent__word') return;
+    if (e.target.className !== classNames.RecentWords.word) return;
     const keyword = e.target.innerText;
     this.props.setCurrentData({
       isLoading: true,
@@ -31,7 +32,9 @@ export default class RecentWords extends StateComponent {
       return;
     }
     this.htmlTag.innerHTML = `최근검색어:${this.state.data
-      .map((word) => `<span class="recent__word">${word}</span>`)
+      .map(
+        (word) => `<span class="${classNames.RecentWords.word}">${word}</span>`
+      )
       .reverse()
       .join('')}
       `;
