@@ -56,5 +56,11 @@ export default class SearchHeader extends StateComponent {
       isLoading: false,
       ...res,
     });
+    this.setRightToZero();
+  };
+
+  setRightToZero = () => {
+    const itemClass = this.cssPropertySelector('.random__banner--item');
+    itemClass.style.right = '0px';
   };
 }

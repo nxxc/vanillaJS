@@ -36,28 +36,31 @@ export default class RandomSection extends ImageSection {
     });
     this.nextBtn.htmlTag.innerHTML = 'next';
 
-    this.itemClass = this.classSelector('.random__banner--item');
     this.render();
   }
 
   onPrevBtnClick = () => {
+    const itemClass = this.cssPropertySelector('.random__banner--item');
     const width = this.randomSlide.htmlTag.getBoundingClientRect().width;
     let currentRight = parseFloat(
-      this.itemClass.style.right.slice(0, this.itemClass.style.right.length - 2)
+      itemClass.style.right.slice(0, itemClass.style.right.length - 2)
     );
     if (currentRight === 0) currentRight = width * 10;
-    this.itemClass.style.right = `${currentRight - width}px`;
+    itemClass.style.right = `${currentRight - width}px`;
   };
 
   onNextBtnClick = () => {
+    const itemClass = this.cssPropertySelector('.random__banner--item');
     const width = this.randomSlide.htmlTag.getBoundingClientRect().width;
     let currentRight = parseFloat(
-      this.itemClass.style.right.slice(0, this.itemClass.style.right.length - 2)
+      itemClass.style.right.slice(0, itemClass.style.right.length - 2)
     );
     console.log(currentRight);
     if (currentRight === width * 9) currentRight = -width;
-    this.itemClass.style.right = `${currentRight + width}px`;
+    itemClass.style.right = `${currentRight + width}px`;
   };
+
+  setStyle = () => {};
 
   render() {
     if (this.state.isLoading) {
@@ -83,7 +86,6 @@ export default class RandomSection extends ImageSection {
       }
     }
     const imageList = document.querySelectorAll('.random__banner--item .image');
-    console.log(imageList);
     imageList.forEach((el) => {
       lazyLoadingObserver.observe(el);
     });
