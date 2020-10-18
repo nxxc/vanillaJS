@@ -6,7 +6,6 @@ import ResultsSection from './ResultsSection/ResultsSection.js';
 import SearchHeader from './SearchHeader/SearchHeader.js';
 import fetchAPI from '../utils/api.js';
 import { htmlTag, classNames } from '../share/html.js';
-import { StatelessComponent } from './factory/componentFactory.js';
 
 export default class App {
   constructor($target) {
@@ -41,12 +40,6 @@ export default class App {
       target: this.$target,
       tag: htmlTag.div,
       className: classNames.Popup.root,
-    });
-
-    this.trigger = new StatelessComponent({
-      target: this.$target,
-      tag: htmlTag.div,
-      class: classNames.trigger,
     });
 
     this.init();
