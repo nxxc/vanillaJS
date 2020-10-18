@@ -40,4 +40,5 @@ export const classNames = Object.freeze({
   fadeIn: 'fade-in',
   fadeOut: 'fade-out',
   articleImage: 'image',
+  trigger: 'trigger',
 });
