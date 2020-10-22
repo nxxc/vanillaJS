@@ -7,7 +7,7 @@ import {
 import ImageTemplate from '../templates/ImageTemplate.js';
 import LoadingTemplate from '../templates/LoadingTemplate.js';
 import lazyLoadingObserver from '../../utils/lazyLoading.js';
-import { classNames, htmlTag } from '../../share/html.js';
+import { classNames, semanticTag } from '../../share/html.js';
 export default class RandomSection extends ImageSection {
   constructor(props) {
     super(props);
@@ -17,13 +17,13 @@ export default class RandomSection extends ImageSection {
 
     this.randomSlide = new StateComponent({
       target: this.htmlTag,
-      tag: htmlTag.section,
+      tag: semanticTag.section,
       className: classNames.RandomSection.randomSlide,
     });
 
     this.prevBtn = new CustomBtn({
       target: this.htmlTag,
-      tag: htmlTag.button,
+      tag: semanticTag.button,
       className: classNames.RandomSection.prevBtn,
       onClick: this.onPrevBtnClick,
     });
@@ -31,7 +31,7 @@ export default class RandomSection extends ImageSection {
 
     this.nextBtn = new CustomBtn({
       target: this.htmlTag,
-      tag: htmlTag.button,
+      tag: semanticTag.button,
       className: classNames.RandomSection.nextBtn,
       onClick: this.onNextBtnClick,
     });

@@ -5,14 +5,14 @@ import RecentWords from './RecentWords/RecentWords.js';
 import ResultsSection from './ResultsSection/ResultsSection.js';
 import SearchHeader from './SearchHeader/SearchHeader.js';
 import fetchAPI from '../utils/api.js';
-import { htmlTag, classNames } from '../share/html.js';
+import { semanticTag, classNames } from '../share/html.js';
 
 export default class App {
   constructor($target) {
     this.$target = $target;
     this.searchHeader = new SearchHeader({
       target: this.$target,
-      tag: htmlTag.header,
+      tag: semanticTag.header,
       className: classNames.SearchHeader.root,
       setRandomCats: this.setRandomCats,
       setCurrentData: this.setCurrentData,
@@ -20,25 +20,25 @@ export default class App {
     });
     this.recentWords = new RecentWords({
       target: this.$target,
-      tag: htmlTag.p,
+      tag: semanticTag.p,
       className: classNames.RecentWords.root,
       setCurrentData: this.setCurrentData,
     });
     this.randomSection = new RandomSection({
       target: this.$target,
-      tag: htmlTag.div,
+      tag: semanticTag.div,
       className: classNames.RandomSection.root,
       onClick: this.onImageClick,
     });
     this.resultsSection = new ResultsSection({
       target: this.$target,
-      tag: htmlTag.section,
+      tag: semanticTag.section,
       className: classNames.ResultSection.root,
       onClick: this.onImageClick,
     });
     this.imagePopup = new ImageInfo({
       target: this.$target,
-      tag: htmlTag.div,
+      tag: semanticTag.div,
       className: classNames.Popup.root,
     });
 

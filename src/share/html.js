@@ -1,4 +1,4 @@
-export const htmlTag = Object.freeze({
+export const semanticTag = Object.freeze({
   header: 'header',
   section: 'section',
   div: 'div',

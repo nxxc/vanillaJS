@@ -3,7 +3,7 @@ import { StatelessComponent } from '../factory/componentFactory.js';
 import SearchInput from './SearchInput.js';
 import SearchRandomBtn from './SearchRandomBtn.js';
 import ToggleDarkBtn from './ToggleDarkBtn.js';
-import { htmlTag, classNames } from '../../share/html.js';
+import { semanticTag, classNames } from '../../share/html.js';
 
 export default class SearchHeader extends StatelessComponent {
   constructor(props) {
@@ -11,14 +11,14 @@ export default class SearchHeader extends StatelessComponent {
 
     this.toggleBtn = new ToggleDarkBtn({
       target: this.htmlTag,
-      tag: htmlTag.button,
+      tag: semanticTag.button,
       className: classNames.SearchHeader.toggleBtn,
       onClick: this.toggleDarkMode,
     });
 
     this.input = new SearchInput({
       target: this.htmlTag,
-      tag: htmlTag.input,
+      tag: semanticTag.input,
       className: classNames.SearchHeader.input,
       onSearch: this.searchData,
       setRecentWords: this.props.setRecentWords,
@@ -26,7 +26,7 @@ export default class SearchHeader extends StatelessComponent {
 
     this.randomBtn = new SearchRandomBtn({
       target: this.htmlTag,
-      tag: htmlTag.button,
+      tag: semanticTag.button,
       className: classNames.SearchHeader.randomBtn,
       onClick: this.searchRandomCats,
     });
